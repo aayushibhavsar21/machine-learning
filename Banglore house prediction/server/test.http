@@ -1,0 +1,9 @@
+### Test Home Route
+GET http://127.0.0.1:5000/get_location_names
+
+### Test Predict Route
+POST http://127.0.0.1:5000/predict_home_price
+Content-Type: application/x-www-form-urlencoded
+
+total_sqft=50000&location=Akshaya Nagar&bhk=16&bath=16
+
