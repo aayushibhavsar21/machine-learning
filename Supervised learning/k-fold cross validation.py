@@ -1,10 +1,7 @@
-# Cross-validation is a technique used to decide which machine learning model (SVM, logistic, or random forest) will be most accurate for any problem.
-# It helps to find accuracy in all the models that you have provided for the given problem.
-# For more accuracy, we divide the data into two parts: training and testing, but it may be possible that the data has different categories and the training 
-       # part contains one category and the testing part contains another category.
-# In this type of situation, we cannot get more accuracy. So for that, we use the k-fold technique.
-# This technique divides data into specified folds and analyses the data by making all parts test data one by one, with the other remaining as train data.
-
+# Cross-validation is a technique used to determine which machine learning model (SVM, logistic regression, or random forest) will be most accurate for a given problem.
+# It helps to assess the accuracy of all the models provided for the problem.
+# For more accurate results, we typically divide the data into two parts: training and testing. However, it’s possible that the data contains different categories, and the training part might contain one category while the testing part contains another.
+# In such cases, accuracy may be compromised. To address this, we use the k-fold cross-validation technique. This technique divides the data into a specified number of folds and evaluates the model by using each fold as the test set while the remaining folds serve as the training set.
 # _________ best algorithm for digit dataset _________
 
 from sklearn.datasets import load_digits
