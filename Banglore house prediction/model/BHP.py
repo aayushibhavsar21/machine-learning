@@ -1,6 +1,6 @@
-# In this project we will learn about what kinds of steps and challenges a data science go through for any problem in bbig comapnies.
-# We will predict price of property in this project. We will build website using html , css ,java script which can predict home price for us 
-# This project include concept of data science like Data cleaning, Feature engineering, One Hot Encoding, Outliner Detection, Dimensionality Reduction, GridSearchCV
+# In this project, we will learn about the kinds of steps and challenges a data scientist goes through for any problem in big companies.
+# We will predict the price of property in this project. We will build a website using HTML, CSS, and JavaScript that can predict home prices for us.
+# This project includes concepts of data science such as data cleaning, feature engineering, one-hot encoding, outlier detection, dimensionality reduction, and GridSearchCV.
 
 import pandas as pd 
 df = pd.read_csv("A:/machine learning/project 1/bengaluru_house_prices.csv")
@@ -17,13 +17,12 @@ print(df.shape)
 
 # ____________ 2) Feature engineering :  ____________ 
 
-print(df['size'].unique())      # size column contain 1st word as number of bedroom. It represent one type of size of house differently like '2 BHK' & '2 Bedrooms'.
-
+print(df['size'].unique())      # The "size" column contains values that represent house size using two different formats: 'n BHK' and 'n Bedrooms'.
 df['BHK'] = df['size'].apply(lambda x : int(x.split(' ')[0]))
 df = df.drop('size',axis='columns')
 print(df.head())
 
-print(df['total_sqft'].unique())   # total_sqft column contain value in range and in other unit(rather than sqrt) also .
+print(df['total_sqft'].unique())   # The "total_sqft" column contains values in a range and in units other than square feet.
 def is_float(x):
     try:
         float(x)
@@ -46,7 +45,7 @@ df = df[df.total_sqft.notnull()]
 df['price_per_sqft'] = round(df['price']*100000 / df['total_sqft'],2)
 
 
-# Examine locations which is a categorical variable. We need to apply dimensionality reduction technique here to reduce number of locations
+# Examine the "locations" variable, which is categorical. We need to apply a dimensionality reduction technique here to reduce the number of locations.
 
 print(len(df['location'].unique()))   # we have 1265 unique location
 
@@ -71,11 +70,10 @@ print(df.shape)
 
 print(df.price_per_sqft.describe())
 
-# Here we find that min price per sqft is 267 rs/sqft whereas max is 12000000, this shows a wide variation in property prices.
-# mean means average price for price_per_sqrt and standard deviation means a quantity expressing by how much the members of a group differ from the mean value for the group.
-# so value can be in the range of mean-std to mean+std. value beyond this range are outliers
-# price differ for every location so we will find average price for every location and then will remove outlier from that.
-
+# Here, we find that the minimum price per sqft is ₹267, while the maximum is ₹12,000,000, indicating a wide variation in property prices.
+# The mean represents the average price per sqft, and the standard deviation indicates how much the prices deviate from the mean. 
+# Thus, the price can range from the mean minus the standard deviation to the mean plus the standard deviation. Values beyond this range are considered outliers.
+# Since prices vary by location, we will first calculate the average price for each location and then remove outliers based on that average.
 import numpy as np
 
 def remove_pps_outliers(df):
@@ -131,7 +129,7 @@ def remove_bhk_outliers(df):
     
     return df.drop(exclude_indices,axis='index')
 
-# Here , We have to add stats in the if condition because if for some location bhk starts from 3, then 2 bhk (bhk - 1) rows are not present in the data. so to ensure that the weather stats variable is present or not.
+# Here, we need to include statistics in the if condition because, if for some locations BHK starts from 3, then rows for 2 BHK (BHK - 1) may not be present in the data. Therefore, we need to check if the weather stats variable is present or not.
 
 df = remove_bhk_outliers(df)
 print(df.shape)
@@ -227,7 +225,7 @@ def predict_price(location,sqft,bath,bhk):
     x[2] = bhk
     if loc_index >= 0:  
         x[loc_index] = 1       # This sets the value of the location feature to 1. All other locations will have their corresponding values in the array set to 0. As we set binary values for location by using dummy variable. 
-                               # here value of loc_index is value we have found by using np.where function .  
+                               # Here, the value of loc_index is the index we found using the np.where function.
     return lr_clf.predict([x])[0]
 
 print(predict_price('1st Phase JP Nagar',1000, 2, 2))
