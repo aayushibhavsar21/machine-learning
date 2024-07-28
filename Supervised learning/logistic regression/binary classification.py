@@ -1,7 +1,6 @@
-# linear regression - it is use to predict cotinuous outcomes like house price , weather , stock price 
-# logistic regression - it is use to predict categorical outcomes ( have fix values , outcome will be only from those values ) like email is spam  
-#                        or not , will customer buy life insurance , to which party person going to vote ( dempcratic , republican , independent )
-#                     
+# Linear Regression: It is used to predict continuous outcomes such as house prices, weather, or stock prices.
+# Logistic Regression: It is used to predict categorical outcomes (which have fixed values and the outcome will be from those values), such as whether an email is spam or not, whether a 
+#                      customer will buy life insurance, or to which party a person is likely to vote (Democratic, Republican, Independent).                     
 
 # we can not use linear regression line as we used in linear regression because in some cases it gives wrong output ( explanation : https://youtu.be/zM4VZR0px8E?si=ntPl3umm5YhUWX39 )  
 # for logistic we can use sigmoid or logit function 
