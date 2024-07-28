@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Problem Prediction</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="symptoms-background">
+    <div class="container">
+        <h1>Select Your Symptoms</h1>
+        <div class="dropdown">
+            <button class="dropbtn">Select Symptoms</button>
+            <div id="dropdown-menu" class="dropdown-content">
+                <!-- Checkboxes will be populated by JavaScript -->
+            </div>
+        </div>
+        <button id="predict-button" class="btn">Predict Health Problem</button>
+        <div id="results">
+            <h2>Health Problem</h2>
+            <p id="health-problem"></p>
+            <h2>Precautions</h2>
+            <p id="precautions"></p>
+            <h2>Home Remedies</h2>
+            <p id="home-remedies"></p>
+        </div>
+        <a href="index.html" class="btn">Back to Welcome Page</a>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

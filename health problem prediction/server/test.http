@@ -1,0 +1,16 @@
+### Test get_symptoms endpoint
+GET http://localhost:5000/get_symptoms
+Accept: application/json
+
+###
+
+### Test predict_problem endpoint
+POST http://localhost:5000/predict_problem
+Content-Type: application/json
+
+{
+  "symptoms": ["muscle_pain" , "nausea" , "high_fever" , "vomiting" , "headachE" , "sweating"]
+}
+
+###
+
