@@ -1,6 +1,6 @@
 # SVM - support vector machine 
-#  |    . . .       -in this graph ,to seperate this 2 data we can draw multiple line from top left to bottom right of graph between cluster of + and .
-#  |  +   . . .          but to find best fitted line we can use margin of point with that line . we will use line with maxmimum margin from line to data ponits.
+#  |    . . .       -In this graph, to separate the two data clusters, we can draw multiple lines from the top-left to the bottom-right of the graph between the clusters of '+' and '.'.
+#  |  +   . . .          To find the best-fitted line, we will use the margin between the line and the data points. We aim to use the line with the maximum margin from the data points.
 #  | + +     .      
 #  |+ +  +         - in 2D space like this grapg boundry between 2 cluster line , in 3D it is a plane and in ND it is hyper plane(not possible to visualize 
 #  |____________          but mathematically possible)
