@@ -1,0 +1,1 @@
+stomach_pain , skin_rash , itching

@@ -9,7 +9,7 @@ POST http://localhost:5000/predict_problem
 Content-Type: application/json
 
 {
-  "symptoms": ["muscle_pain" , "nausea" , "high_fever" , "vomiting" , "headachE" , "sweating"]
+  "symptoms": ["high_fever", "muscle_pain", "vomiting", "yellow_urine", "yellowish_skin"]
 }
 
 ###

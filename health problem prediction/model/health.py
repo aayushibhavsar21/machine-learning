@@ -62,19 +62,20 @@ for model_name, mp in algo.items():
     })
     
 result = pd.DataFrame(scores,columns=['model','best_score','best_params'])
-#print(result)
+print(result)
 
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(inputs , target , test_size=0.3)
+X_train, X_test, y_train, y_test = train_test_split(inputs , target , test_size=0.3 , random_state=10)
 
 from sklearn.tree import DecisionTreeRegressor
-model = DecisionTreeRegressor()
+model = DecisionTreeRegressor(criterion='squared_error',splitter='best')
 model.fit(X_train,y_train)
-print(model.score(X_test,y_test))
+
 
 import numpy as np
 
-def predict_problem(symptoms):    
+def predict_problem(symptoms): 
+    print(symptoms)   
     x = np.zeros(len(inputs.columns)) 
     for i in symptoms:
         try: 
@@ -94,31 +95,26 @@ symptoms = [item.strip() for item in ls]
 
 print("health problem prediction:",predict_problem(symptoms))
 
-#import pickle
-#with open('Health_problem.pickle','wb') as f:
-#    pickle.dump(model,f)
-#
-#import json
-#sym = {
-#    'symptoms' : [col.lower() for col in train.columns]
-#}
-#with open("symptoms.json","w") as f:
-#    f.write(json.dumps(sym))
-#
-#pct = {
-#    'precautions' : [pct.lower() for pct in train.precautions.unique()]
-#}
-#with open("precaution.json","w") as f:
-#    f.write(json.dumps(pct))
-#
-#hr = {
-#    'home_remedies' : [hm.lower() for hm in train['home remedies'].unique()]
-#}
-#with open("home_remedies.json","w") as f:
-#    f.write(json.dumps(hr))
+import pickle
+with open('Health_problem.pickle','wb') as f:
+    pickle.dump(model,f)
+import json
+sym = {
+    'symptoms' : [col.lower() for col in train.columns]
+}
+with open("symptoms.json","w") as f:
+    f.write(json.dumps(sym))
 
+pct = {
+    'precautions' : [pct.lower() for pct in train.precautions.unique()]
+}
+with open("precaution.json","w") as f:
+    f.write(json.dumps(pct))
 
-# muscle_pain , nausea , high_fever , vomiting , headache , sweating
-# stomach_pain , skin_rash , itching
-# constipation , pain_in_anal_region , irritation_in_anus
+hr = {
+    'home_remedies' : [hm.lower() for hm in train['home remedies'].unique()]
+}
+with open("home_remedies.json","w") as f:
+    f.write(json.dumps(hr))
+
 

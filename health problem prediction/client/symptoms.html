@@ -9,11 +9,13 @@
 <body class="symptoms-background">
     <div class="container">
         <h1>Select Your Symptoms</h1>
-        <div class="dropdown">
-            <button class="dropbtn">Select Symptoms</button>
-            <div id="dropdown-menu" class="dropdown-content">
-                <!-- Checkboxes will be populated by JavaScript -->
-            </div>
+        <input type="text" id="search-input" placeholder="Search symptoms..." oninput="filterSymptoms()">
+        <div id="symptoms-container">
+            <!-- Options will be populated by JavaScript -->
+        </div>
+        <div id="selected-symptoms-container">
+            <h2>Selected Symptoms</h2>
+            <p id="selected-symptoms"></p>
         </div>
         <button id="predict-button" class="btn">Predict Health Problem</button>
         <div id="results">

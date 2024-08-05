@@ -21,6 +21,45 @@ body {
     background-repeat: no-repeat; /* Prevents the background image from repeating */
 }
 
+/* Add to styles.css */
+.highlight {
+    background-color: #d3f9d8; /* Light green background for highlighted items */
+    border-radius: 5px;
+}
+
+/* Add to styles.css */
+#search-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    color: black;
+}
+
+#symptoms-container {
+    color: black;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #fff;
+    padding: 10px;
+}
+
+.checkbox-container {
+    margin-bottom: 10px;
+}
+
+.checkbox-container label {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 5px;
+}
+
 /* Specific background for the welcome page */
 .welcome-background {
     background-image: url('A:/machine learning/health problem prediction/client/home page.jpg');
@@ -72,32 +111,4 @@ body {
     width: 50%;
     text-align: center;
     margin: 20px;
-}
-
-.dropdown-content {
-    color: black;
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 100%;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-content label {
-    display: block;
-    padding: 8px 16px;
-    cursor: pointer;
-}
-
-.dropdown-content input[type="checkbox"] {
-    margin-right: 10px;
-}
-
-.dropdown-content label:hover {
-    background-color: #f1f1f1;
-}
-
-.dropdown.show .dropdown-content {
-    display: block;
 }

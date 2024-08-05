@@ -1,40 +1,62 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const dropdownMenu = document.getElementById('dropdown-menu');
+document.addEventListener('DOMContentLoaded', () => {
+    const symptomsContainer = document.getElementById('symptoms-container');
+    const searchInput = document.getElementById('search-input');
     const predictButton = document.getElementById('predict-button');
-    const dropdownButton = document.querySelector('.dropbtn');
-    const dropdown = document.querySelector('.dropdown');
+    const healthProblemElement = document.getElementById('health-problem');
+    const precautionsElement = document.getElementById('precautions');
+    const homeRemediesElement = document.getElementById('home-remedies');
+    const selectedSymptomsElement = document.getElementById('selected-symptoms');
 
-    if (!dropdownMenu || !predictButton || !dropdownButton) {
-        console.error('Required elements not found!');
-        return;
-    }
+    const apiBaseUrl = 'http://localhost:5000';
+    let symptoms = [];
 
-    fetch('http://127.0.0.1:5000/get_symptoms')
+    // Fetch symptoms and populate dropdown
+    fetch(`${apiBaseUrl}/get_symptoms`)
         .then(response => response.json())
         .then(data => {
-            data.symptoms.forEach(symptom => {
-                const label = document.createElement('label');
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.value = symptom;
-                label.appendChild(checkbox);
-                label.appendChild(document.createTextNode(symptom));
-                dropdownMenu.appendChild(label);
-            });
-        })
-        .catch(error => console.error('Error fetching symptoms:', error));
+            symptoms = data.symptoms;
+            populateSymptoms(symptoms);
+        });
 
-    dropdownButton.addEventListener('click', function() {
-        dropdown.classList.toggle('show');
-    });
+    function populateSymptoms(symptoms) {
+        symptomsContainer.innerHTML = ''; // Clear existing content
+        symptoms.forEach(symptom => {
+            const checkboxContainer = document.createElement('div');
+            checkboxContainer.classList.add('checkbox-container');
+            checkboxContainer.innerHTML = `
+                <input type="checkbox" value="${symptom}" id="${symptom}">
+                <label for="${symptom}">${symptom}</label>
+            `;
+            symptomsContainer.appendChild(checkboxContainer);
+        });
+    }
 
-    predictButton.addEventListener('click', predictHealthProblem);
+    function filterSymptoms() {
+        const query = searchInput.value.toLowerCase();
+        const allCheckboxes = document.querySelectorAll('#symptoms-container .checkbox-container');
+        
+        allCheckboxes.forEach(container => {
+            const label = container.querySelector('label');
+            const symptom = label.textContent.toLowerCase();
+            if (symptom.includes(query)) {
+                label.classList.add('highlight');
+                container.style.display = 'block';
+            } else {
+                label.classList.remove('highlight');
+                container.style.display = 'none';
+            }
+        });
+    }
 
     function predictHealthProblem() {
-        const selectedSymptoms = Array.from(document.querySelectorAll('#dropdown-menu input[type="checkbox"]:checked'))
-            .map(checkbox => checkbox.value);
+        const selectedCheckboxes = document.querySelectorAll('#symptoms-container input[type="checkbox"]:checked');
+        const selectedSymptoms = Array.from(selectedCheckboxes).map(checkbox => checkbox.value);
+        
+        // Display selected symptoms
+        selectedSymptomsElement.textContent = `Selected symptoms are: ${selectedSymptoms.join(', ')}`;
 
-        fetch('http://127.0.0.1:5000/predict_problem', {
+        // Fetch prediction
+        fetch(`${apiBaseUrl}/predict_problem`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -43,10 +65,12 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => response.json())
         .then(data => {
-            document.getElementById('health-problem').textContent = data.health_problem || 'No health problem found';
-            document.getElementById('precautions').textContent = data.precaution || 'No precautions available';
-            document.getElementById('home-remedies').textContent = data.home_remedies || 'No home remedies available';
-        })
-        .catch(error => console.error('Error predicting health problem:', error));
+            healthProblemElement.textContent = data.health_problem;
+            precautionsElement.textContent = data.precaution;
+            homeRemediesElement.textContent = data.home_remedies;
+        });
     }
+
+    searchInput.addEventListener('input', filterSymptoms);
+    predictButton.addEventListener('click', predictHealthProblem);
 });
